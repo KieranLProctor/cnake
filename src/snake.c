@@ -6,28 +6,29 @@
 #include "../include/snake.h"
 #include "../include/window.h"
 
-void snake_init(Snake *snake)
+void snake_init(Snake *snake, Vector2 *offset)
 {
-    snake->length = 1;
-    snake->isAlive = true;
-    snake->direction = (Direction) GetRandomValue(1, 4);
-    snake->position[0].x = GetRandomValue(0, GRID_COLS);
-    snake->position[0].y = GetRandomValue(0, GRID_ROWS);
+    for (int i = 0; i < SNAKE_SIZE; i++)
+    {
+        snake[i].position = (Vector2){ offset->x/2, offset->y/2 };
+        snake[i].size = (Vector2){ SQUARE_SIZE, SQUARE_SIZE };
+        snake[i].speed = (Vector2){ SQUARE_SIZE, 0 };
+
+        if (i == 0)
+        {
+            snake[i].colour = DARKGREEN;
+        }
+        else
+        {
+            snake[i].colour = LIME;
+        }
+    }
 }
 
-void snake_draw(Snake *snake)
+void snake_draw(Snake *snake, int counterTail)
 {
-    Vector2 *head = &snake->position[0];
-    Color snakeColour = LIME;
-    Color headColour  = DARKGREEN;
-
-    // draw body
-    for (int i = 1; i < snake->length; i++) {
-        DrawRectangle(snake->position[i].x * CELL_WIDTH, snake->position[i].y * CELL_HEIGHT,
-                      CELL_WIDTH, CELL_HEIGHT, snakeColour);
+    for (int i = 0; i < counterTail; i++)
+    {
+        DrawRectangleV(snake[i].position, snake[i].size, snake[i].colour);
     }
-
-    // draw head
-    DrawRectangle(head->x * CELL_WIDTH, head->y * CELL_HEIGHT, CELL_WIDTH,
-                  CELL_HEIGHT, headColour);
 }

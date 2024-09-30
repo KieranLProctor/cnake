@@ -6,11 +6,10 @@
 #define CNAKE_WINDOW_H
 
 #define WINDOW_TITLE "Cnake - Basic Snake game written in C using Raylib."
-#define WINDOW_WIDTH 500
-#define WINDOW_HEIGHT 500
-#define GRID_COLS 30
-#define GRID_ROWS 30
-#define CELL_WIDTH (WINDOW_WIDTH / GRID_COLS)
-#define CELL_HEIGHT (WINDOW_HEIGHT / GRID_ROWS)
+#define SQUARE_SIZE 31
+#define SNAKE_SIZE 256
+
+#define WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 450
 
 #endif //CNAKE_WINDOW_H

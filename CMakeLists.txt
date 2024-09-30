@@ -27,12 +27,10 @@ endif()
 add_executable(${PROJECT_NAME} src/main.c
         include/snake.h
         include/types.h
-        include/timer.h
         include/game.h
         include/food.h
         src/snake.c
         include/window.h
-        src/timer.c
         src/game.c
         src/game.c
         src/food.c)
