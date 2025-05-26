@@ -16,21 +16,21 @@ void game_init(Game *game)
 void game_update(Game *game, Snake *snake, Vector2 *snakePosition, int counterTail, int *frameCounter, Vector2 *offset)
 {
     /* player movement */
-    if ((IsKeyPressed(KEY_W) || IsKeyPressed(KEY_UP)) && (snake[0].speed.y == 0))
+    if ((IsKeyPressed(KEY_W) || IsKeyPressed(KEY_UP)) && (snake[0].direction.y == 0))
     {
-        snake[0].speed = (Vector2){ 0, -SQUARE_SIZE };
+        snake[0].direction = (Vector2){ 0, -SQUARE_SIZE };
     }
-    else if ((IsKeyPressed(KEY_A) || IsKeyPressed(KEY_LEFT)) && (snake[0].speed.x == 0))
+    else if ((IsKeyPressed(KEY_A) || IsKeyPressed(KEY_LEFT)) && (snake[0].direction.x == 0))
     {
-        snake[0].speed = (Vector2){ -SQUARE_SIZE, 0 };
+        snake[0].direction = (Vector2){ -SQUARE_SIZE, 0 };
     }
-    else if ((IsKeyPressed(KEY_S) || IsKeyPressed(KEY_DOWN)) && (snake[0].speed.y == 0))
+    else if ((IsKeyPressed(KEY_S) || IsKeyPressed(KEY_DOWN)) && (snake[0].direction.y == 0))
     {
-        snake[0].speed = (Vector2){ 0, SQUARE_SIZE };
+        snake[0].direction = (Vector2){ 0, SQUARE_SIZE };
     }
-    else if ((IsKeyPressed(KEY_D) || IsKeyPressed(KEY_RIGHT)) && (snake[0].speed.x == 0))
+    else if ((IsKeyPressed(KEY_D) || IsKeyPressed(KEY_RIGHT)) && (snake[0].direction.x == 0))
     {
-        snake[0].speed = (Vector2){ SQUARE_SIZE, 0 };
+        snake[0].direction = (Vector2){ SQUARE_SIZE, 0 };
     }
 
     for (int i = 0; i < counterTail; i++)
@@ -38,14 +38,15 @@ void game_update(Game *game, Snake *snake, Vector2 *snakePosition, int counterTa
         snakePosition[i] = snake[i].position;
     }
 
-    if ((*frameCounter%5) == 0)
+    /* snake speed */
+    if ((*frameCounter%2000) == 0)
     {
         for (int i = 0; i < counterTail; i++)
         {
             if (i == 0)
             {
-                snake[0].position.x += snake[0].speed.x;
-                snake[0].position.y += snake[0].speed.y;
+                snake[0].position.x += snake[0].direction.x;
+                snake[0].position.y += snake[0].direction.y;
             }
             else {
                 snake[i].position = snakePosition[i - 1];
@@ -64,17 +65,16 @@ void game_update(Game *game, Snake *snake, Vector2 *snakePosition, int counterTa
     (*frameCounter)++;
 }
 
-void game_draw(int screenWidth, int screenHeight, int squareSize, Vector2 offset)
+void game_draw(int screenWidth, int screenHeight)
 {
-    // Draw grid lines
-    for (int i = 0; i < screenWidth/squareSize + 1; i++)
+    for (int i = 0; i < GRID_COLS + 1; i++)
     {
-        DrawLineV((Vector2){squareSize*i + offset.x/2, offset.y/2}, (Vector2){squareSize*i + offset.x/2, screenHeight - offset.y/2}, LIGHTGRAY);
+        DrawLineV((Vector2){((screenWidth - BORDER_OFFSET * 2) / GRID_COLS * i) + BORDER_OFFSET, BORDER_OFFSET}, (Vector2){((screenWidth - BORDER_OFFSET * 2) / GRID_COLS * i) + BORDER_OFFSET, (screenHeight - BORDER_OFFSET)}, LIGHTGRAY);
     }
 
-    for (int i = 0; i < screenHeight/squareSize + 1; i++)
+    for (int i = 0; i < GRID_ROWS + 1; i++)
     {
-        DrawLineV((Vector2){offset.x/2, squareSize*i + offset.y/2}, (Vector2){screenWidth - offset.x/2, squareSize*i + offset.y/2}, LIGHTGRAY);
+        DrawLineV((Vector2){BORDER_OFFSET, ((screenHeight - BORDER_OFFSET * 2) / GRID_ROWS * i) + BORDER_OFFSET}, (Vector2){screenWidth - BORDER_OFFSET, ((screenHeight - BORDER_OFFSET * 2) / GRID_ROWS * i) + BORDER_OFFSET}, LIGHTGRAY);
     }
 }
 

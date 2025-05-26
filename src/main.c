@@ -22,8 +22,8 @@ void debug(Game *game, Snake *snake)
 
 void init(void)
 {
-    g_offset.x = WINDOW_WIDTH%SQUARE_SIZE;
-    g_offset.y = WINDOW_HEIGHT%SQUARE_SIZE;
+    g_offset.x = 10;
+    g_offset.y = 10;
     g_counterTail = 1;
     g_frameCounter = 0;
 
@@ -69,7 +69,7 @@ int main(void)
 
             case GAMEPLAY:
                 game_update(&g_game, g_snake, g_snakePosition, g_counterTail, &g_frameCounter, &g_offset);
-                game_draw(WINDOW_WIDTH, WINDOW_HEIGHT, SQUARE_SIZE, g_offset);
+                game_draw(WINDOW_WIDTH, WINDOW_HEIGHT);
                 snake_draw(g_snake, g_counterTail);
 
                 break;

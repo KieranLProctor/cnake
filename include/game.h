@@ -21,7 +21,7 @@ typedef struct {
 
 void game_init(Game *game);
 void game_update(Game *game, Snake *snake, Vector2 *snakePosition, int counterTail, int *frameCounter, Vector2 *offset);
-void game_draw(int screenWidth, int screenHeight, int squareSize, Vector2 offset);
+void game_draw(int screenWidth, int screenHeight);
 void game_restart(Game *game, Snake *snake, Vector2 *offset);
 
 #endif //CNAKE_GAME_H

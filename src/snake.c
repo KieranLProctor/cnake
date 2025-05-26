@@ -10,9 +10,10 @@ void snake_init(Snake *snake, Vector2 *offset)
 {
     for (int i = 0; i < SNAKE_SIZE; i++)
     {
-        snake[i].position = (Vector2){ offset->x/2, offset->y/2 };
+//        snake[i].position = (Vector2){ offset->x / 2, offset->y / 2 };
+        snake[i].position = (Vector2){ 0, SNAKE_SIZE / 2 };
         snake[i].size = (Vector2){ SQUARE_SIZE, SQUARE_SIZE };
-        snake[i].speed = (Vector2){ SQUARE_SIZE, 0 };
+        snake[i].direction = (Vector2){ SQUARE_SIZE, 0 };
 
         if (i == 0)
         {
@@ -23,6 +24,11 @@ void snake_init(Snake *snake, Vector2 *offset)
             snake[i].colour = LIME;
         }
     }
+}
+
+void snake_update(Snake *snake)
+{
+
 }
 
 void snake_draw(Snake *snake, int counterTail)
